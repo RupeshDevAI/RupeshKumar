@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { Download, MapPin, Calendar, Award } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Button } from "@/components/ui/button";
+import { TooltipTrigger } from "@/components/MouseTooltip";
+import developerAvatar from "@/assets/developer-avatar.jpg";
 
 const timeline = [
   {
@@ -47,7 +49,7 @@ export function About() {
       className="relative py-32 overflow-hidden"
     >
       {/* Background */}
-      <div className="absolute inset-0 gradient-mesh opacity-30" />
+      <div className="absolute inset-0 gradient-mesh opacity-20" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
@@ -74,18 +76,26 @@ export function About() {
           >
             {/* Profile Card */}
             <div className="relative">
-              {/* Profile Image Placeholder */}
-              <div className="relative aspect-square max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden mb-8">
-                <div className="absolute inset-0 bg-gradient-to-br from-neon-cyan/20 via-neon-purple/20 to-neon-green/20" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-32 h-32 rounded-full bg-card border-2 border-primary flex items-center justify-center">
-                    <span className="text-4xl font-bold text-gradient">JD</span>
-                  </div>
-                </div>
-                {/* Decorative Elements */}
-                <div className="absolute top-4 right-4 w-20 h-20 border border-neon-cyan/30 rounded-full" />
-                <div className="absolute bottom-8 left-8 w-12 h-12 border border-neon-purple/30 rounded-full" />
-              </div>
+              {/* Profile Image */}
+              <motion.div 
+                className="relative aspect-square max-w-sm mx-auto lg:mx-0 rounded-2xl overflow-hidden mb-8 shadow-2xl"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                <img 
+                  src={developerAvatar} 
+                  alt="Developer" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent" />
+                
+                {/* Decorative border */}
+                <div className="absolute inset-0 border-2 border-primary/20 rounded-2xl" />
+                <div className="absolute top-2 left-2 w-6 h-6 border-t-2 border-l-2 border-neon-cyan rounded-tl-lg" />
+                <div className="absolute top-2 right-2 w-6 h-6 border-t-2 border-r-2 border-neon-purple rounded-tr-lg" />
+                <div className="absolute bottom-2 left-2 w-6 h-6 border-b-2 border-l-2 border-neon-green rounded-bl-lg" />
+                <div className="absolute bottom-2 right-2 w-6 h-6 border-b-2 border-r-2 border-neon-pink rounded-br-lg" />
+              </motion.div>
 
               {/* Info */}
               <div className="space-y-4">
@@ -115,10 +125,12 @@ export function About() {
 
                 {/* CTA */}
                 <div className="flex flex-wrap gap-4 pt-4">
-                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                    <Download className="w-4 h-4 mr-2" />
-                    Download Resume
-                  </Button>
+                  <TooltipTrigger text="Download my resume">
+                    <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl shadow-lg hover:shadow-xl transition-all">
+                      <Download className="w-4 h-4 mr-2" />
+                      Download Resume
+                    </Button>
+                  </TooltipTrigger>
                 </div>
               </div>
             </div>
@@ -137,7 +149,7 @@ export function About() {
 
             <div className="relative">
               {/* Timeline Line */}
-              <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
+              <div className="absolute left-4 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-border to-transparent" />
 
               {/* Timeline Items */}
               <div className="space-y-8">
@@ -150,17 +162,22 @@ export function About() {
                     className="relative pl-12"
                   >
                     {/* Dot */}
-                    <div className="absolute left-0 top-2 w-8 h-8 rounded-full bg-card border-2 border-primary flex items-center justify-center">
+                    <div className="absolute left-0 top-2 w-8 h-8 rounded-full bg-card border-2 border-primary flex items-center justify-center shadow-lg">
                       <div className="w-2 h-2 rounded-full bg-primary" />
                     </div>
 
                     {/* Content */}
-                    <div className="p-4 rounded-xl bg-card border border-border">
-                      <span className="text-xs font-mono text-primary">{item.year}</span>
-                      <h4 className="font-bold mt-1">{item.title}</h4>
-                      <p className="text-sm text-muted-foreground">{item.company}</p>
-                      <p className="text-sm text-muted-foreground mt-2">{item.description}</p>
-                    </div>
+                    <TooltipTrigger text={item.company}>
+                      <motion.div 
+                        whileHover={{ scale: 1.02, x: 4 }}
+                        className="p-5 rounded-2xl bg-card border border-border shadow-lg hover:shadow-xl hover:border-primary/30 transition-all"
+                      >
+                        <span className="text-xs font-mono text-primary">{item.year}</span>
+                        <h4 className="font-bold mt-1">{item.title}</h4>
+                        <p className="text-sm text-muted-foreground">{item.company}</p>
+                        <p className="text-sm text-muted-foreground mt-2">{item.description}</p>
+                      </motion.div>
+                    </TooltipTrigger>
                   </motion.div>
                 ))}
               </div>
@@ -173,18 +190,20 @@ export function About() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20"
+          className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20"
         >
           {stats.map((stat, index) => (
-            <div
-              key={stat.label}
-              className="text-center p-6 rounded-xl bg-card border border-border"
-            >
-              <div className="text-3xl md:text-4xl font-bold text-gradient mb-2">
-                {stat.value}
-              </div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
-            </div>
+            <TooltipTrigger key={stat.label} text={stat.label}>
+              <motion.div
+                whileHover={{ scale: 1.05, y: -4 }}
+                className="text-center p-6 rounded-2xl bg-card border border-border shadow-lg hover:shadow-xl hover:border-primary/30 transition-all"
+              >
+                <div className="text-3xl md:text-4xl font-bold text-gradient mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
+              </motion.div>
+            </TooltipTrigger>
           ))}
         </motion.div>
       </div>

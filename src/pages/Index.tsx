@@ -6,21 +6,24 @@ import { About } from "@/components/sections/About";
 import { Blog } from "@/components/sections/Blog";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/layout/Footer";
+import { MouseTooltipProvider } from "@/components/MouseTooltip";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Navigation />
-      <main>
-        <Hero />
-        <Services />
-        <Projects />
-        <About />
-        <Blog />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <MouseTooltipProvider>
+      <div className="min-h-screen bg-background text-foreground">
+        <Navigation />
+        <main>
+          <Hero />
+          <Services />
+          <Projects />
+          <About />
+          <Blog />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
+    </MouseTooltipProvider>
   );
 };
 

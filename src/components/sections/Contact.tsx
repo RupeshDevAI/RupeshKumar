@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Calendar, Mail, MessageSquare, Send, MapPin, Clock } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { Button } from "@/components/ui/button";
+import { TooltipTrigger } from "@/components/MouseTooltip";
 
 export function Contact() {
   const { ref, isInView } = useScrollAnimation<HTMLElement>();
@@ -13,8 +14,7 @@ export function Contact() {
       className="relative py-32 overflow-hidden"
     >
       {/* Background */}
-      <div className="absolute inset-0 gradient-mesh" />
-      <div className="absolute inset-0 noise-overlay" />
+      <div className="absolute inset-0 gradient-mesh opacity-30" />
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Section Header */}
@@ -44,7 +44,7 @@ export function Contact() {
             className="space-y-8"
           >
             {/* Availability Status */}
-            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-neon-green/30 bg-neon-green/10">
+            <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-2xl border border-neon-green/30 bg-neon-green/10 shadow-lg">
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-green opacity-75" />
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-neon-green" />
@@ -64,38 +64,47 @@ export function Contact() {
 
             {/* Contact Methods */}
             <div className="space-y-4">
-              <a
-                href="mailto:hello@example.com"
-                className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border hover:border-primary/50 transition-all group"
-              >
-                <div className="p-3 rounded-lg bg-primary/10">
-                  <Mail className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-sm text-muted-foreground">Email me at</p>
-                  <p className="font-medium group-hover:text-primary transition-colors">hello@example.com</p>
-                </div>
-              </a>
+              <TooltipTrigger text="Send me an email">
+                <motion.a
+                  href="mailto:hello@example.com"
+                  whileHover={{ scale: 1.02, x: 4 }}
+                  className="flex items-center gap-4 p-5 rounded-2xl bg-card border border-border hover:border-primary/50 transition-colors shadow-lg hover:shadow-xl group"
+                >
+                  <div className="p-3 rounded-xl bg-primary/10">
+                    <Mail className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-muted-foreground">Email me at</p>
+                    <p className="font-medium group-hover:text-primary transition-colors">hello@example.com</p>
+                  </div>
+                </motion.a>
+              </TooltipTrigger>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border">
-                <div className="p-3 rounded-lg bg-primary/10">
+              <motion.div 
+                whileHover={{ scale: 1.02, x: 4 }}
+                className="flex items-center gap-4 p-5 rounded-2xl bg-card border border-border shadow-lg"
+              >
+                <div className="p-3 rounded-xl bg-primary/10">
                   <MapPin className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Based in</p>
                   <p className="font-medium">San Francisco, CA (Remote Friendly)</p>
                 </div>
-              </div>
+              </motion.div>
 
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-card border border-border">
-                <div className="p-3 rounded-lg bg-primary/10">
+              <motion.div 
+                whileHover={{ scale: 1.02, x: 4 }}
+                className="flex items-center gap-4 p-5 rounded-2xl bg-card border border-border shadow-lg"
+              >
+                <div className="p-3 rounded-xl bg-primary/10">
                   <Clock className="w-5 h-5 text-primary" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Response time</p>
                   <p className="font-medium">Usually within 24 hours</p>
                 </div>
-              </div>
+              </motion.div>
             </div>
           </motion.div>
 
@@ -105,7 +114,7 @@ export function Contact() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <div className="p-8 rounded-2xl bg-card border border-border">
+            <div className="p-8 rounded-2xl bg-card border border-border shadow-2xl">
               <div className="flex items-center gap-3 mb-6">
                 <Calendar className="w-6 h-6 text-primary" />
                 <h3 className="text-xl font-bold">Book a Consultation</h3>
@@ -117,18 +126,20 @@ export function Contact() {
               </p>
 
               {/* Calendar Placeholder */}
-              <div className="aspect-video rounded-xl bg-muted/50 border border-border flex flex-col items-center justify-center p-8 text-center">
+              <div className="aspect-video rounded-2xl bg-muted/30 border border-border flex flex-col items-center justify-center p-8 text-center">
                 <Calendar className="w-12 h-12 text-muted-foreground mb-4" />
                 <p className="text-muted-foreground mb-4">
                   Calendar integration placeholder
                 </p>
                 <p className="text-xs text-muted-foreground mb-6">
-                  Connect your Cal.com or Calendly account to enable scheduling
+                  Connect your Cal.com or Calendly account
                 </p>
-                <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Schedule a Call
-                </Button>
+                <TooltipTrigger text="Book a free consultation">
+                  <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-2xl shadow-lg">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    Schedule a Call
+                  </Button>
+                </TooltipTrigger>
               </div>
 
               {/* Alternative Contact */}
@@ -137,11 +148,11 @@ export function Contact() {
                   Prefer to send a message instead?
                 </p>
                 <div className="flex gap-4">
-                  <Button variant="outline" className="flex-1 border-border hover:border-primary">
+                  <Button variant="outline" className="flex-1 border-border hover:border-primary rounded-2xl">
                     <MessageSquare className="w-4 h-4 mr-2" />
                     Quick Message
                   </Button>
-                  <Button variant="outline" className="flex-1 border-border hover:border-primary">
+                  <Button variant="outline" className="flex-1 border-border hover:border-primary rounded-2xl">
                     <Send className="w-4 h-4 mr-2" />
                     Send Email
                   </Button>
