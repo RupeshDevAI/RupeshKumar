@@ -192,8 +192,8 @@ export function Hero() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-brutalist text-4xl sm:text-5xl md:text-6xl lg:text-7xl mb-6"
               >
-                <span className="block">AI & Full Stack</span>
-                <span className="block text-gradient">Engineer</span>
+                <span className="block">Rupesh Kumar</span>
+                <p className="block text-gradient">AI Full Stack Developer</p>
               </motion.h1>
 
               {/* Subtitle */}

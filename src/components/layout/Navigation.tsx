@@ -55,7 +55,7 @@ export function Navigation() {
           whileTap={{ scale: 0.95 }}
         >
           <Terminal className="w-6 h-6 text-primary" />
-          <span className="text-gradient">DevPortfolio</span>
+          <span className="text-gradient">RupeshK</span>
         </motion.a>
 
         {/* Desktop Navigation */}

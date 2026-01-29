@@ -34,7 +34,7 @@ export function Footer() {
           <div className="md:col-span-2">
             <a href="#hero" className="flex items-center gap-2 text-xl font-bold mb-4">
               <Terminal className="w-6 h-6 text-primary" />
-              <span className="text-gradient">DevPortfolio</span>
+              <span className="text-gradient">RupeshK</span>
             </a>
             <p className="text-muted-foreground max-w-sm mb-6">
               Full-stack engineer specializing in AI, Web, Blockchain, and Cloud development. 
